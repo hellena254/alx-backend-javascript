@@ -5,23 +5,26 @@ const sendPaymentRequestToApi = require('./5-payment');
 describe('sendPaymentRequestToApi', () => {
   let consoleSpy;
 
-  // setup the spy before eact Test
   beforeEach(() => {
+    // Create a spy on console.log before each test
+    consoleSpy = sinon.spy(console, 'log');
+  });
+
+  afterEach(() => {
+    // Restore the original console.log after each test
     consoleSpy.restore();
   });
 
-  it('logs the correct total for sendPaymentRequestToApi(100, 20)', () => {
+  it('logs "The total is: 120" when calling sendPaymentRequestToApi(100, 20)', () => {
     sendPaymentRequestToApi(100, 20);
-
-    // Verify console.log was called with the correct message
     expect(consoleSpy.calledWith('The total is: 120')).to.be.true;
-
-    // Verify console.log was called only once
-    expect(consoleSpy.callCount).to.be.equal(1);
+    expect(consoleSpy.calledOnce).to.be.true;
   });
 
-  it('logs the correct total for sendPaymentRequestToApi(10, 10)', () => {
+  it('logs "The total is: 20" when calling sendPaymentRequestToApi(10, 10)', () => {
     sendPaymentRequestToApi(10, 10);
-
-    // Verify console.log was called with the correct message
     expect(consoleSpy.calledWith('The total is: 20')).to.be.true;
+    expect(consoleSpy.calledOnce).to.be.true;
+  });
+});
+
